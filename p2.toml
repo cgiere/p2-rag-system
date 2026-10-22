@@ -40,3 +40,10 @@ model = "BAAI/bge-small-en-v1.5"
 # Reciprocal rank fusion (read in p2/retrievers/hybrid.py): the systems fused and the constant k.
 systems = ["bm25", "dense"]
 rrf_k = 60
+
+[rerank]
+# The listwise reranker (read in p2/retrievers/rerank.py): the first stage it reorders,
+# how many of its top documents Claude sees, and how many characters of each.
+first_stage = "hybrid"
+candidates = 20
+passage_chars = 600
