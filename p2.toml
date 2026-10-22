@@ -31,3 +31,7 @@ top = 5
 [claude]
 # The model for every claude -p call (the reranker and the answers).
 model = "sonnet"
+
+[dense]
+# The embedding model of the dense retriever (read in p2/retrievers/dense.py).
+model = "BAAI/bge-small-en-v1.5"
