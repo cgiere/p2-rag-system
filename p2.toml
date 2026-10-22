@@ -35,3 +35,8 @@ model = "sonnet"
 [dense]
 # The embedding model of the dense retriever (read in p2/retrievers/dense.py).
 model = "BAAI/bge-small-en-v1.5"
+
+[hybrid]
+# Reciprocal rank fusion (read in p2/retrievers/hybrid.py): the systems fused and the constant k.
+systems = ["bm25", "dense"]
+rrf_k = 60

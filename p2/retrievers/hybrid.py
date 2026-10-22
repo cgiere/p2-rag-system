@@ -1,25 +1,48 @@
-"""Your hybrid retriever (stage 1): fuse the rankings of two systems into one.
+"""Hybrid retrieval (stage 1): reciprocal rank fusion of two systems, bm25 and dense by default.
 
-This file is yours to write. Until you write it, build() raises NotImplementedError, and p2 skips
-the system and lists it as to do.
-
-Where the idea is:
-- the 13 lab's pipeline.py in the course repo (class/13-rag-pipeline/lab/starter/pipeline.py):
-  rrf() is reciprocal rank fusion with k = 60, where each document scores the sum of 1 / (60 + rank)
-  over the rankings it appears in, and command_fuse() fuses bm25 with an embedder;
-- get the two systems you fuse with p2.retrievers.build("bm25", corpus, cfg) and
-  build("dense", corpus, cfg), so each index is built once per run;
-- fuse full rankings, not top-10 lists (ask each system for len(corpus.docs) documents), because a
-  document that is 11th in both lists can belong in the fused top 10;
-- order the fused documents with p2.runfile.order(), so equal scores fall in document id order.
-
-If you want `p2 answer` to work with hybrid, also give it search_chunks(text, k): the same fusion over chunk rankings.
+It is rrf() of the 13 lab's pipeline.py: a document scores the sum of 1 / (k + rank) over the
+rankings, with k = 60 and rank counted from 1.
+- the fused systems and k are [hybrid] systems and rrf_k in p2.toml;
+- each system is built through p2.retrievers.build, so its index is built once per run;
+- each system ranks every document (every chunk for search_chunks), not just its top k, so a
+  document that is 11th in both lists can still reach the fused top 10;
+- the fused list is ordered with p2.runfile.order, so equal scores fall in id order.
 """
+
+from __future__ import annotations
+
+from collections import defaultdict
+
+from p2 import retrievers
+from p2.runfile import order
 
 NEEDS_CLAUDE = False
 
 
+def rrf(rankings, k):
+    """Reciprocal rank fusion of rankings given as [(id, score), ...] best first."""
+    scores: dict[str, float] = defaultdict(float)
+    for ranking in rankings:
+        for rank, (item, _score) in enumerate(ranking, 1):
+            scores[item] += 1 / (k + rank)
+    return order(scores.items())
+
+
+class Hybrid:
+    def __init__(self, corpus, cfg):
+        settings = cfg.table("hybrid")
+        names = settings.get("systems", ["bm25", "dense"])
+        self.k = settings.get("rrf_k", 60)
+        self.systems = [retrievers.build(name, corpus, cfg) for name in names]
+        self.n_docs = len(corpus.docs)
+        self.model = next((s.model for s in self.systems if getattr(s, "model", None)), None)
+
+    def search(self, text, k):
+        return rrf([s.search(text, self.n_docs) for s in self.systems], self.k)[:k]
+
+    def search_chunks(self, text, k):
+        return rrf([s.search_chunks(text, len(s.chunks)) for s in self.systems], self.k)[:k]
+
+
 def build(corpus, cfg):
-    raise NotImplementedError(
-        "hybrid is not built yet: write p2/retrievers/hybrid.py (the idea is rrf() in the 13 lab's pipeline.py)."
-    )
+    return Hybrid(corpus, cfg)
