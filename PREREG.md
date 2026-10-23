@@ -24,7 +24,9 @@ One sentence, about your own corpus, naming two of your systems and a direction.
 For example: "On my corpus of Kubernetes documentation, `rerank` has a higher MRR@10 than `hybrid`, because the queries are paraphrases that a first-stage fusion ranks too low."
 It should be something you could be wrong about.
 
-TODO: your hypothesis.
+On my corpus of USGS Mineral Commodity Summaries, hybrid has a higher MRR@10 than bm25, because the queries mix exact
+entities (commodity names, countries, years) with paraphrased descriptions of uses and trends (e.g. “metal used in EV
+batteries” instead of “lithium”), and bm25 alone fails on the paraphrased ones.
 
 ---
 
@@ -36,7 +38,16 @@ A difference of 0.02 is usually not worth a reranker's cost in time and tokens.
 In this course, choose a Δ of at least 0.15 unless you argue for a larger one, because a smaller gap takes more queries than one project can judge.
 Call your number Δ (delta).
 
-TODO: your metric and your Δ, with the reason.
+Metric: MRR@10. I am choosing it now, before running any system.
+
+Δ = 0.15. A user asking a question of the USGS Mineral Commodity Summaries wants one passage that answers it, such as a
+production figure, an import-reliance percentage, or a trend statement. MRR@10 is a direct fit for that: it measures how
+far down the list they must read before reaching an answer. A gain of 0.15 is roughly the difference between the first
+correct passage landing around rank 3 versus rank 2 on a typical query (reciprocal rank 0.33 vs. 0.50), or between a
+correct passage appearing in the top 10 for a noticeably larger share of queries. A user would feel that as less scrolling
+and fewer reformulated searches. A gain of 0.02 would be invisible to a person, and it would not justify the added
+complexity of running a second retriever and fusing the results. From my sample-size table, detecting Δ = 0.15 for hybrid -
+bm25 on MRR@10 (sd = 0.307) needs about 33 queries, which is feasible for this project.
 
 ---
 
@@ -65,7 +76,16 @@ After you score the own corpus, the minimum detectable difference that `uv run p
 It should come out at or below your Δ.
 If it does not, your queries varied more than your stage 1 sd suggested, and you will say so in the outcome.
 
-TODO: your sd, which pair it came from, your n, and the number of queries you will write (at least n).
+sd: 0.307, the standard deviation of the per-query MRR@10 difference between hybrid and bm25 on the 20 shared practice
+queries (from results/results.json, stage 1 runs).
+
+Δ: 0.15, from section 2.
+
+n: ((1.96 + 0.84) x 0.307 / 0.15)^2 = 32.8, so 33 queries
+
+I will write at least n queries (38 queries). The measured sd for hybrid vs bm25 on MRR@10 is 0.307, which gives n = 33. 
+Because that sd comes from only 20 practice queries, we pad it up to 0.33 (about 7% higher). 
+Using 0.33 for sd gives us: n = ((1.96 + 0.84) x 0.330 / 0.15)^2 = 37.9 or 38 queries. 
 
 ---
 
@@ -82,7 +102,14 @@ This is the default rule, and you can tighten it, but do not loosen it after you
 | around zero, with both ends inside plus or minus Δ | well-powered null: a difference as large as Δ is ruled out |
 | around zero, with an end beyond plus or minus Δ | inconclusive: the gold set could not settle it, and I say so |
 
-TODO: confirm or tighten this rule, and name the two systems and the metric once more.
+
+Systems and metric: hybrid vs bm25 on MRR@10, difference = hybrid − bm25, predicted direction positive. Δ = 0.15.
+
+Rule: I keep the default four-row rule exactly as written. I fixed it before scoring and will not loosen it afterwards.
+
+One clarification: if the interval is entirely above zero, I will report “supported” per row 1, and I will also
+report the point estimate and the interval next to Δ = 0.15, so the reader can see whether the effect is as large as the
+one I said would matter.
 
 ---
 
