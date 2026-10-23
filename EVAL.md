@@ -137,7 +137,11 @@ How did you decide that a document is relevant: write your relevance rule in two
 How did you find candidates (the systems' top 10, a keyword search, reading), and did you read every document before you labeled it?
 Your labels are binary (`rel` 1) unless you say otherwise: if you use graded labels, declare the scale here, for example 2 means the document answers the query fully and 1 means it helps.
 
-TODO: describe your gold set and your relevance rule.
+When a query names a year, I treat it as the data year, the year the figure describes, not the year of the edition that
+publishes it. Every chapter that reports a figure for that year is relevant, whether the figure is an estimate or a revised
+value. For example, a query about tungsten net import reliance in 2023 counts the chapters that report a 2023 figure, even
+if one gives it as an estimate and a later edition gives it as a revision. When a query names no year, the matching passage
+from any edition counts as relevant. I fixed this rule before judging and will not change it after seeing results.
 
 ---
 
