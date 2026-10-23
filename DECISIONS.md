@@ -26,7 +26,7 @@ Commit this answer before your first `uv run p2 score` on the own corpus.
 Git history then shows that the expectation came first, which is what lets it be wrong in a way that teaches you something.
 If you were surprised later, say so in prompt 4 or in EVAL.md; do not come back and rewrite this one.
 
-TODO: your answer to prompt 1.
+The corpus I chose was USGS Mineral Commodity Summaries since I thought it would be meaningful to an examine an analysis of the critical minerals industry using a RAG system since this field that is so closely intertwined with Colorado School of Mines. I think the `hybrid` will have the best performance since it combines `dense` and `bm25` so it can therefore get matches from keywords and meaning. I think `bm25` will have the worst performance since it is just a classic keyword search.
 
 ---
 
