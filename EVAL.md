@@ -325,7 +325,16 @@ What did you change, what happened, and does the interval support the claim you 
 If the result is not distinguishable, say what size of effect your gold set could have seen.
 Read the queries at the top of each list in the second table, and say whether your change explains them.
 
-TODO: write the ablation: the one change, the hypothesis, the result and the claim.
+Change: I reduced the dense retriever’s chunk size from 300 to 100 words (overlap left at 50) in a variant, dense_small. Hypothesis (written before the run):
+this would raise dense MRR@10 because the answer sentence is diluted inside a 300-word chunk.
+
+Result: MRR@10 rose by +0.076 [−0.029, +0.185], in the predicted direction, but the interval includes zero, so the result is not distinguishable. My gold set’s
+MDD for this comparison was 0.155, so it could detect a gain of about that size and could not detect one of +0.076; a true effect up to roughly +0.19, or a
+small harm, cannot be ruled out. nDCG@10 and Recall@10 tell the same story.
+
+Claim: the data do not show that smaller chunks help dense. The query lists lean toward the dilution explanation (7 of 8 helped queries are paraphrase, and the
+largest wins have a one-sentence answer), but 4 queries got worse, including o05, whose labels I flagged as borderline, and the 50-word overlap is a larger
+share of a 100-word chunk, so the mechanism is a guess, not a finding.
 
 ---
 
