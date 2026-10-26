@@ -325,16 +325,30 @@ What did you change, what happened, and does the interval support the claim you 
 If the result is not distinguishable, say what size of effect your gold set could have seen.
 Read the queries at the top of each list in the second table, and say whether your change explains them.
 
-Change: I reduced the dense retriever’s chunk size from 300 to 100 words (overlap left at 50) in a variant, dense_small. Hypothesis (written before the run):
-this would raise dense MRR@10 because the answer sentence is diluted inside a 300-word chunk.
+Change: I reduced the dense retriever’s chunk size from 300 to 100 words in a variant, dense_small, and left the overlap at 50 words. Nothing else changed, and
+the variant is compared with dense.
 
-Result: MRR@10 rose by +0.076 [−0.029, +0.185], in the predicted direction, but the interval includes zero, so the result is not distinguishable. My gold set’s
-MDD for this comparison was 0.155, so it could detect a gain of about that size and could not detect one of +0.076; a true effect up to roughly +0.19, or a
-small harm, cannot be ruled out. nDCG@10 and Recall@10 tell the same story.
+Hypothesis (written before the run): this would raise dense MRR@10 on my corpus, because the sentence that answers a paraphrase query is a small part of a
+300-word chunk, so its embedding is diluted by the boilerplate every commodity chapter shares.
 
-Claim: the data do not show that smaller chunks help dense. The query lists lean toward the dilution explanation (7 of 8 helped queries are paraphrase, and the
-largest wins have a one-sentence answer), but 4 queries got worse, including o05, whose labels I flagged as borderline, and the 50-word overlap is a larger
-share of a 100-word chunk, so the mechanism is a guess, not a finding.
+Result: MRR@10 rose by +0.076, 95% interval [−0.029, +0.185]. The direction matches the hypothesis, but the interval includes zero, so the result is not
+distinguishable. nDCG@10 (+0.078, [−0.012, +0.176]) and Recall@10 (+0.068, [−0.022, +0.169]) tell the same story. The MDD for this comparison was 0.155, so my
+38 queries could detect a gain of about that size and could not detect one of +0.076. A true effect anywhere from a small harm to roughly +0.19 is still
+possible.
+
+Claim: the data do not show that smaller chunks help dense, and they do not show that they hurt. The hypothesis is not supported under my pre-stated rule.
+
+Query lists: dense_small helped 8 queries, hurt 4 and left 26 unchanged, and 7 of the 8 helped are paraphrase queries. In the three biggest wins (o18, o21,
+o13), dense ranked the right chapter outside its top three, while dense_small ranked a chunk that echoes the query first: the garnet Substitutes paragraph
+mentioning sandblasting, the opening chunk of all three tin editions (“not mined… since 1993”), and a bismuth chunk with the pharmaceutical sentence. Only the
+tin chunk holds the answer sentence itself, and I did not check the others for the stomach-remedy or 1997 clues. So a narrower window helped here, but this does
+not show that an answer sentence was diluted. Of the 4 hurt queries, o05 lost its one relevant chunk (the heavy rare earths chunk about permanent magnets) to
+vanadium, cobalt and lithium chunks, which alone lowered the mean difference by about 0.026 (1/38). In o35, dense_small ranked the 2025 edition’s 2024 capacity
+figure first, which my data-year rule counts as not relevant, with the 2026 chunk third, so that loss comes from near-identical editions, not lost context. o17
+and o22 each went from a rank-8 first hit to none in the top 10.
+
+A 50-word overlap is a larger share of a 100-word chunk than of a 300-word one, so the change also altered how much neighboring chunks repeat. I did
+not separate that from chunk size, so the mechanism in my hypothesis is untested.
 
 ---
 
