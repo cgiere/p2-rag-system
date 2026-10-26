@@ -120,7 +120,9 @@ Which row of the table in section 4 is it?
 Did your gold set reach the size section 3 asked for, and what was the minimum detectable difference that `uv run p2 score` printed?
 What would you do next, and what would you want a reader to take from this?
 
-TODO: your outcome.
+On my 38-query gold set, hybrid scored +0.056 above bm25 on MRR@10 (95% interval −0.039 to +0.153). The interval includes zero and its upper end exceeds my Δ of 
+0.15, so under my pre-stated rule the result is inconclusive: I cannot rule out a difference as large as 0.15, nor show one. The minimum detectable difference
+was 0.139, below my Δ, so the set was as sensitive as planned.
 
 ---
 

@@ -254,7 +254,9 @@ TODO: write what your own-corpus intervals let you claim.
 ## 5. The ablation
 
 Change one thing and keep everything else the same.
-Write your hypothesis here before you run it, in one sentence with a direction: "I expect X to raise MRR@10 on my corpus because Y."
+Write your hypothesis here before you run it, in one sentence with a direction: I expect reducing the dense retriever’s chunk size from 300 to 100 words to
+raise dense MRR@10 on my corpus, because the sentence that answers a paraphrase query is a small part of a 300-word chunk, so its embedding is diluted by the
+surrounding boilerplate that every commodity chapter shares.
 The run file for it lives in `runs/own/ablation/`.
 
 <!-- p2:begin own-ablation -->
