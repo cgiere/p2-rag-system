@@ -1818,6 +1818,260 @@
               "reading": "not distinguishable"
             }
           }
+        },
+        "ablation/dense_small": {
+          "run": "runs/own/ablation/dense_small.trec",
+          "mean": {
+            "recall@10": 0.855263,
+            "mrr@10": 0.798246,
+            "ndcg@10": 0.808152
+          },
+          "by_class": {
+            "paraphrase": {
+              "n": 19,
+              "recall@10": 0.710526,
+              "mrr@10": 0.622807,
+              "ndcg@10": 0.639281
+            },
+            "keyword": {
+              "n": 19,
+              "recall@10": 1.0,
+              "mrr@10": 0.973684,
+              "ndcg@10": 0.977024
+            }
+          },
+          "per_query": {
+            "o01": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            },
+            "o02": {
+              "recall@10": 0.666667,
+              "mrr@10": 1.0,
+              "ndcg@10": 0.735917
+            },
+            "o03": {
+              "recall@10": 1.0,
+              "mrr@10": 0.333333,
+              "ndcg@10": 0.603907
+            },
+            "o04": {
+              "recall@10": 1.0,
+              "mrr@10": 0.5,
+              "ndcg@10": 0.63405
+            },
+            "o05": {
+              "recall@10": 0.0,
+              "mrr@10": 0.0,
+              "ndcg@10": 0.0
+            },
+            "o06": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            },
+            "o07": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            },
+            "o08": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            },
+            "o09": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            },
+            "o10": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            },
+            "o11": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 0.906025
+            },
+            "o12": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            },
+            "o13": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            },
+            "o14": {
+              "recall@10": 1.0,
+              "mrr@10": 0.5,
+              "ndcg@10": 0.697882
+            },
+            "o15": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            },
+            "o16": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            },
+            "o17": {
+              "recall@10": 0.0,
+              "mrr@10": 0.0,
+              "ndcg@10": 0.0
+            },
+            "o18": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 0.906025
+            },
+            "o19": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            },
+            "o20": {
+              "recall@10": 0.0,
+              "mrr@10": 0.0,
+              "ndcg@10": 0.0
+            },
+            "o21": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            },
+            "o22": {
+              "recall@10": 0.0,
+              "mrr@10": 0.0,
+              "ndcg@10": 0.0
+            },
+            "o23": {
+              "recall@10": 0.833333,
+              "mrr@10": 0.5,
+              "ndcg@10": 0.662534
+            },
+            "o24": {
+              "recall@10": 0.0,
+              "mrr@10": 0.0,
+              "ndcg@10": 0.0
+            },
+            "o25": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 0.932521
+            },
+            "o26": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            },
+            "o27": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            },
+            "o28": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            },
+            "o29": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            },
+            "o30": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            },
+            "o31": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            },
+            "o32": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            },
+            "o33": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            },
+            "o34": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            },
+            "o35": {
+              "recall@10": 1.0,
+              "mrr@10": 0.5,
+              "ndcg@10": 0.63093
+            },
+            "o36": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            },
+            "o37": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            },
+            "o38": {
+              "recall@10": 1.0,
+              "mrr@10": 1.0,
+              "ndcg@10": 1.0
+            }
+          },
+          "by_origin": {
+            "hand": {
+              "n": 10,
+              "recall@10": 0.866667,
+              "mrr@10": 0.783333,
+              "ndcg@10": 0.797387
+            },
+            "claude": {
+              "n": 28,
+              "recall@10": 0.85119,
+              "mrr@10": 0.803571,
+              "ndcg@10": 0.811997
+            }
+          },
+          "origin_diff": {
+            "recall@10": {
+              "mean_diff": 0.015476,
+              "ci95": [
+                -0.228571,
+                0.225
+              ],
+              "reading": "not distinguishable"
+            },
+            "mrr@10": {
+              "mean_diff": -0.020238,
+              "ci95": [
+                -0.286935,
+                0.222619
+              ],
+              "reading": "not distinguishable"
+            },
+            "ndcg@10": {
+              "mean_diff": -0.01461,
+              "ci95": [
+                -0.261276,
+                0.203888
+              ],
+              "reading": "not distinguishable"
+            }
+          }
         }
       },
       "pairs": [
@@ -2072,6 +2326,174 @@
           "sd_diff": 0.240438,
           "mdd80": 0.109274,
           "reading": "rerank higher"
+        },
+        {
+          "a": "ablation/dense_small",
+          "b": "bm25",
+          "metric": "recall@10",
+          "n": 38,
+          "mean_diff": 0.004386,
+          "ci95": [
+            -0.109649,
+            0.122807
+          ],
+          "sd_diff": 0.366558,
+          "mdd80": 0.166592,
+          "reading": "not distinguishable"
+        },
+        {
+          "a": "ablation/dense_small",
+          "b": "bm25",
+          "metric": "mrr@10",
+          "n": 38,
+          "mean_diff": 0.03089,
+          "ci95": [
+            -0.085216,
+            0.145379
+          ],
+          "sd_diff": 0.363541,
+          "mdd80": 0.165221,
+          "reading": "not distinguishable"
+        },
+        {
+          "a": "ablation/dense_small",
+          "b": "bm25",
+          "metric": "ndcg@10",
+          "n": 38,
+          "mean_diff": 0.021869,
+          "ci95": [
+            -0.074384,
+            0.115934
+          ],
+          "sd_diff": 0.29772,
+          "mdd80": 0.135307,
+          "reading": "not distinguishable"
+        },
+        {
+          "a": "ablation/dense_small",
+          "b": "dense",
+          "metric": "recall@10",
+          "n": 38,
+          "mean_diff": 0.067982,
+          "ci95": [
+            -0.02193,
+            0.16886
+          ],
+          "sd_diff": 0.302551,
+          "mdd80": 0.137503,
+          "reading": "not distinguishable"
+        },
+        {
+          "a": "ablation/dense_small",
+          "b": "dense",
+          "metric": "mrr@10",
+          "n": 38,
+          "mean_diff": 0.075815,
+          "ci95": [
+            -0.028517,
+            0.185158
+          ],
+          "sd_diff": 0.340633,
+          "mdd80": 0.15481,
+          "reading": "not distinguishable"
+        },
+        {
+          "a": "ablation/dense_small",
+          "b": "dense",
+          "metric": "ndcg@10",
+          "n": 38,
+          "mean_diff": 0.07761,
+          "ci95": [
+            -0.01207,
+            0.17647
+          ],
+          "sd_diff": 0.297312,
+          "mdd80": 0.135122,
+          "reading": "not distinguishable"
+        },
+        {
+          "a": "ablation/dense_small",
+          "b": "hybrid",
+          "metric": "recall@10",
+          "n": 38,
+          "mean_diff": -0.015351,
+          "ci95": [
+            -0.092105,
+            0.070175
+          ],
+          "sd_diff": 0.261274,
+          "mdd80": 0.118743,
+          "reading": "not distinguishable"
+        },
+        {
+          "a": "ablation/dense_small",
+          "b": "hybrid",
+          "metric": "mrr@10",
+          "n": 38,
+          "mean_diff": -0.025,
+          "ci95": [
+            -0.121491,
+            0.072379
+          ],
+          "sd_diff": 0.311823,
+          "mdd80": 0.141716,
+          "reading": "not distinguishable"
+        },
+        {
+          "a": "ablation/dense_small",
+          "b": "hybrid",
+          "metric": "ndcg@10",
+          "n": 38,
+          "mean_diff": -0.016862,
+          "ci95": [
+            -0.093023,
+            0.063916
+          ],
+          "sd_diff": 0.253613,
+          "mdd80": 0.115261,
+          "reading": "not distinguishable"
+        },
+        {
+          "a": "ablation/dense_small",
+          "b": "rerank",
+          "metric": "recall@10",
+          "n": 38,
+          "mean_diff": -0.083333,
+          "ci95": [
+            -0.188596,
+            0.017544
+          ],
+          "sd_diff": 0.325931,
+          "mdd80": 0.148128,
+          "reading": "not distinguishable"
+        },
+        {
+          "a": "ablation/dense_small",
+          "b": "rerank",
+          "metric": "mrr@10",
+          "n": 38,
+          "mean_diff": -0.149123,
+          "ci95": [
+            -0.280702,
+            -0.026316
+          ],
+          "sd_diff": 0.406016,
+          "mdd80": 0.184525,
+          "reading": "rerank higher"
+        },
+        {
+          "a": "ablation/dense_small",
+          "b": "rerank",
+          "metric": "ndcg@10",
+          "n": 38,
+          "mean_diff": -0.121588,
+          "ci95": [
+            -0.228612,
+            -0.017788
+          ],
+          "sd_diff": 0.33393,
+          "mdd80": 0.151764,
+          "reading": "rerank higher"
         }
       ],
       "origins": {
@@ -2122,6 +2544,114 @@
             "n": 28,
             "mean": 0.810911
           }
+        }
+      },
+      "ablation_queries": {
+        "ablation/dense_small": {
+          "system": "dense_small",
+          "base": "dense",
+          "rule": "BASE = \"dense\" in p2/retrievers/dense_small.py",
+          "helped": [
+            {
+              "qid": "o18",
+              "class": "paraphrase",
+              "origin": "claude",
+              "base_rr": 0.0,
+              "rr": 1.0,
+              "change": 1.0
+            },
+            {
+              "qid": "o21",
+              "class": "paraphrase",
+              "origin": "claude",
+              "base_rr": 0.142857,
+              "rr": 1.0,
+              "change": 0.857143
+            },
+            {
+              "qid": "o13",
+              "class": "paraphrase",
+              "origin": "claude",
+              "base_rr": 0.166667,
+              "rr": 1.0,
+              "change": 0.833333
+            },
+            {
+              "qid": "o11",
+              "class": "paraphrase",
+              "origin": "claude",
+              "base_rr": 0.5,
+              "rr": 1.0,
+              "change": 0.5
+            },
+            {
+              "qid": "o33",
+              "class": "keyword",
+              "origin": "claude",
+              "base_rr": 0.5,
+              "rr": 1.0,
+              "change": 0.5
+            },
+            {
+              "qid": "o04",
+              "class": "paraphrase",
+              "origin": "hand",
+              "base_rr": 0.142857,
+              "rr": 0.5,
+              "change": 0.357143
+            },
+            {
+              "qid": "o03",
+              "class": "paraphrase",
+              "origin": "hand",
+              "base_rr": 0.0,
+              "rr": 0.333333,
+              "change": 0.333333
+            },
+            {
+              "qid": "o23",
+              "class": "paraphrase",
+              "origin": "claude",
+              "base_rr": 0.25,
+              "rr": 0.5,
+              "change": 0.25
+            }
+          ],
+          "hurt": [
+            {
+              "qid": "o05",
+              "class": "paraphrase",
+              "origin": "hand",
+              "base_rr": 1.0,
+              "rr": 0.0,
+              "change": -1.0
+            },
+            {
+              "qid": "o35",
+              "class": "keyword",
+              "origin": "claude",
+              "base_rr": 1.0,
+              "rr": 0.5,
+              "change": -0.5
+            },
+            {
+              "qid": "o17",
+              "class": "paraphrase",
+              "origin": "claude",
+              "base_rr": 0.125,
+              "rr": 0.0,
+              "change": -0.125
+            },
+            {
+              "qid": "o22",
+              "class": "paraphrase",
+              "origin": "claude",
+              "base_rr": 0.125,
+              "rr": 0.0,
+              "change": -0.125
+            }
+          ],
+          "unchanged": 26
         }
       }
     }
@@ -2488,6 +3018,12 @@
       ],
       "answers_pairs": [],
       "local": [
+        {
+          "file": "traces/retrieval/own-own-ablation-dense_small.jsonl",
+          "system": "dense_small",
+          "spans": 38,
+          "seconds": 0.1196
+        },
         {
           "file": "traces/retrieval/own-own-bm25.jsonl",
           "system": "bm25",
