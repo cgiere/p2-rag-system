@@ -150,7 +150,9 @@ What is it, where did it come from, how many documents and how many megabytes, a
 Name the one or two documents you were least sure about and what you decided.
 Say which of the allowed sources in the brief it comes from.
 
-The corpus: "The USGS Mineral Commodity Summaries" per-commodity chapter PDFs, from pubs.usgs.gov/periodicals/mcsYYYY/. All 262 manifest rows point there, and `scripts/fetch_usgs.sh` is the fetch script. There are 262 documents: 87 from the 2024 edition, 87 from 2025, and 88 from 2026. This is 2.0 MB of markdown. All 262 rows say `us-gov-public-domain`. `LICENSES.md` shows 262 ok, 0 flagged, 0 fail, 0 reviewed. All 262 manifest sources are usgs.gov addresses. The chapters don’t repeat the front-matter sentence.
+The corpus: "The USGS Mineral Commodity Summaries" per-commodity chapter PDFs, from pubs.usgs.gov/periodicals/mcsYYYY/. All 262 manifest rows point there, and `scripts/fetch_usgs.sh` is the fetch script. There are 262 documents: 87 from the 2024 edition, 87 from 2025, and 88 from 2026. This is 2.0 MB of markdown. All 262 rows say `us-gov-public-domain`. `LICENSES.md` shows 262 ok, 0 flagged, 0 fail, 0 reviewed. All 262 manifest sources are usgs.gov addresses. 
+
+This is the reservation the brief wants stated. Page 4 of the 2025 volume, https://pubs.usgs.gov/periodicals/mcs2025/mcs2025.pdf. This also pertains to the 2024 and 2026 volume: “Although this report is in the public domain, permission must be secured from the individual copyright owners to reproduce any copyrighted material contained within this report.”
 
 License basis: “USGS-authored or produced data and information are considered to be in the U.S. public domain and can be freely used without permission.” 
 The exception: “Not all information, illustrations, or photographs on our site are” in the public domain. Some non-USGS images are used with the copyright holder’s permission and “are generally marked as being copyrighted”. 
