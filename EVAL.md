@@ -336,7 +336,8 @@ distinguishable. nDCG@10 (+0.078, [−0.012, +0.176]) and Recall@10 (+0.068, [�
 38 queries could detect a gain of about that size and could not detect one of +0.076. A true effect anywhere from a small harm to roughly +0.19 is still
 possible.
 
-Claim: the data do not show that smaller chunks help dense, and they do not show that they hurt. The hypothesis is not supported under my pre-stated rule.
+Claim: the data do not show that smaller chunks help dense, and they do not show that they hurt. Reading the intervals the same four-row way as my PREREG §4
+test (which was written in advance only for hybrid vs bm25), the hypothesis is not supported.
 
 Query lists: dense_small helped 8 queries, hurt 4 and left 26 unchanged, and 7 of the 8 helped are paraphrase queries. In the three biggest wins (o18, o21,
 o13), dense ranked the right chapter outside its top three, while dense_small ranked a chunk that echoes the query first: the garnet Substitutes paragraph
@@ -344,8 +345,8 @@ mentioning sandblasting, the opening chunk of all three tin editions (“not min
 tin chunk holds the answer sentence itself, and I did not check the others for the stomach-remedy or 1997 clues. So a narrower window helped here, but this does
 not show that an answer sentence was diluted. Of the 4 hurt queries, o05 lost its one relevant chunk (the heavy rare earths chunk about permanent magnets) to
 vanadium, cobalt and lithium chunks, which alone lowered the mean difference by about 0.026 (1/38). In o35, dense_small ranked the 2025 edition’s 2024 capacity
-figure first, which my data-year rule counts as not relevant, with the 2026 chunk third, so that loss comes from near-identical editions, not lost context. o17
-and o22 each went from a rank-8 first hit to none in the top 10.
+figure first, which my data-year rule counts as not relevant, with the 2026 chapter second, so that loss comes from near-identical editions, not lost context.
+o17 and o22 each went from a rank-8 first hit to none in the top 10.
 
 A 50-word overlap is a larger share of a 100-word chunk than of a 300-word one, so the change also altered how much neighboring chunks repeat. I did
 not separate that from chunk size, so the mechanism in my hypothesis is untested.
@@ -464,7 +465,38 @@ _No stretch runs yet (stretch option 5): `uv run p2 run --corpus own --queries e
 
 ### Your stretch
 
-Write the five things here.
+1. 598E rider
+
+2. What you did, and the files that hold it.
+  I ran three runs of rerank on the 20 shared practice queries and three sets of cited answers on the 12 shared questions and each of these times I asked Claude again. This is in commit d05a03d. The files are:
+  - `runs/shared/rerank.practice.r1.trec` 
+  - `runs/shared/rerank.practice.r2.trec`
+  - `runs/shared/rerank.practice.r3.trec`
+  - `answers/shared/rerank.r1.json`
+  - `answers/shared/rerank.r2.json`
+  - `answers/shared/rerank.r3.json`
+  - `traces/shared-practice-rerank.r1.jsonl`
+  - `traces/shared-practice-rerank.r2.jsonl`
+  - `traces/shared-practice-rerank.r3.jsonl`
+  - `traces/answers-rerank.r2.jsonl`
+  - `traces/answers-rerank.r3.jsonl`
+  - `results/results.json`
+
+  The pre-registered claim is in `PREREG.md`, and the 38-query gold set is in `eval/own/qrels.txt`.
+
+3. `repeats` in section 9 for the rider
+
+4. The interval lets me claim:
+    - the spread between runs is small: (range 0.025 on Recall@10, 0.0000 on MRR@10, 0.013 on nDCG@10)
+    - The gain of `rerank` over `hybrid` on the practice queries is larger than that spread and excludes zero in all three runs (MRR@10 +0.329 [+0.164, +0.504])
+
+  The interval does not let me claim:
+    - That the verified and declined shares are really 100%. The Wilson intervals are [0.676, 1.000] on 8 questions and [0.510, 1.000] on 4.
+    - That the three repeats are independent trials. They use the same questions, so I did not pool them.
+    - That the single own-corpus run of `rerank` would hold up across fresh Claude replies. On my corpus `rerank - hybrid` is +0.124 [+0.030, +0.232] on 38 queries, so `rerank` is distinguishably better there, but I repeated the reranker only on the shared corpus.
+     - For the pre-registered claim: `hybrid - bm25` came out inconclusive, so it neither confirms nor rules out a gap of 0.15.
+
+5. One thing I would do next is resolve the `hybrid - bm25` question. The MDD of 0.139 on 38 queries implies a spread of about 0.306. If the true gap is near +0.056, the upper end drops below 0.15 at about 41 queries, which is only a coin flip, and an 80% chance needs about 83. It worked if the interval has both ends inside ±0.15 (a well-powered null) or lies entirely above zero (supported). My pre-registration fixed n = 38, so the inconclusive result stands, and any extension would be a dated amendment in PREREG §6, not a rescue of this result.
 
 ---
 
