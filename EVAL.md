@@ -25,7 +25,13 @@ The minimum detectable difference is the smallest gap this many queries could re
 
 For each of `dense`, `hybrid` and `rerank`, one or two sentences: the embedding model, how documents were chunked, what was fused and how, how many candidates the reranker saw, and anything you changed from the 12 and 13 lab code.
 
-TODO: describe your three systems.
+`dense`: embeds each 300-word chunk (50-word overlap) with `BAAI/bge-small-en-v1.5` and ranks chunks by cosine similarity to the query, which is embedded without a prefix. A document's score is its best chunk's.
+
+`hybrid`: combines `bm25` and `dense` with reciprocal rank fusion, scoring each document by the sum of 1 / (60 + rank) over both rankings. Each system ranks every document. 
+
+`rerank`: takes the top 20 documents of `hybrid`, each cut to its first 600 characters, and asks Claude in one call to put all 20 in order, best first. An invalid or failed reply keeps hybrid's order, and documents below the top 20 keep their place. 
+
+Changed from the lab code: the labs ranked whole articles, while mine cut 300-word chunks, score a document by its best chunk, and add a `search_chunks` path for answers. The lab's constants (20 candidates, 600 characters) and the model, RRF constant and first stage are set in `p2.toml`. My rerank prompt says "a document collection" instead of "a help center", and its reply schema also bounds each number between 1 and n.
 
 ### Practice queries (20)
 
@@ -99,6 +105,12 @@ Which claim from lecture 12 or 13 did your numbers support, and which did they l
 
 TODO: write what the practice-query intervals let you claim.
 
+On the 20 practice queries, rerank is distinguishably better than hybrid and dense on all three metrics, and better than bm25 on MRR@10 and nDCG@10 (but not Recall@10, and with lower ends barely above zero). None of the differences among bm25, dense and hybrid is distinguishable. The minimum detectable differences are 0.17 to 0.42, so a gap smaller than that could be hidden, and “not distinguishable” here does not mean equal.
+
+The class table fits lecture 12’s claim that no retriever wins everywhere: bm25 is best on identifier queries and scores 0 on paraphrase queries, dense is best on paraphrase queries, and even rerank trails bm25 on identifiers. With 6 or 7 queries per class and no intervals, I treat this as a pattern, not a tested result. `hybrid` did not beat its better component on the identifier or paraphrase queries, but on the 6 mixed queries it did (MRR@10 0.792 against `bm25` 0.746 and `dense` 0.653).
+
+Lecture 13 said each stage after the first retriever can help on average and can hurt on your data. My numbers support that for rerank, which is distinguishably better than hybrid, and leave it open for fusion, since no hybrid comparison is distinguishable. The class table also fits lecture 13’s point that fusion helps the weaker partner and hurts the stronger one: hybrid sits between bm25 and dense in the identifier and paraphrase classes. The lecture’s warning that a reranker cannot recover documents outside its 20 candidates is consistent with rerank trailing bm25 on identifier queries, but I have not checked which of its misses were outside the candidate list.
+
 ---
 
 ## 2. Stage 1 - cited answers on the 12 shared questions
@@ -117,6 +129,18 @@ For each one, open the cited chunk and say whether the quote really supports the
 The check proves a quote is a real piece of the chunk and cannot prove that it supports the claim, so this reading is the part only you can do.
 
 TODO: write your answer choices and your three-answer audit.
+
+The system that answered is `rerank` as it had the best practice-query scores: Recall@10 0.758, MRR@10 0.800, nDCG@10 0.756; answering with it cost two Claude calls per question.
+
+`prompts/answer.txt` is unchanged since the initial commit. 
+
+The verified share (8 of 8) and the declined share (4 of 4) both come from the starting prompt, and all three repeats gave the same counts.
+
+Audit a08: supported yes (for the cited claim) - paragraph (b)(1) of `cfr30-7.506#0` says the breathable air "sustains each person for 96 hours," which is the number the claim states. The answer text also adds a sentence about a 48-hour alternative that has no claim or quote behind it, and `cfr30-7.506#0` does not contain it. It appears in `cfr30-75.1507` (paragraphs (c) and (d)(1)), which was among the five retrieved chunks, so it looks grounded, but the check passed without testing it because it only reads claims.
+
+Audit a02: supported yes for claim 1, partly for claim 2 - the 80 percent quote matches the first sentence of `cfr30-75.403#0` word for word. Claim 2 says the percentage is increased "only" where methane is present, but the chunk only says it is increased by 0.4 percent per 0.1 percent of methane where methane is present. The word "only" is an inference from the two sentences together, not something the quote states.
+
+Audit a07: supported yes for the height requirement, no for the scope sentence - paragraph (b) of both `cfr30-57.9300#0` and `cfr30-56.9300#0` contains the mid-axle sentence, so both quotes are real and support their claims. The answer also says 57.9300 covers underground and surface mines while 56.9300 covers surface mines only, and neither chunk says which mines each section applies to, so that part is not supported by the cited text. 
 
 ---
 
@@ -478,6 +502,7 @@ _No stretch runs yet (stretch option 5): `uv run p2 run --corpus own --queries e
   - `traces/shared-practice-rerank.r1.jsonl`
   - `traces/shared-practice-rerank.r2.jsonl`
   - `traces/shared-practice-rerank.r3.jsonl`
+  - `traces/answers-rerank.r1.jsonl`
   - `traces/answers-rerank.r2.jsonl`
   - `traces/answers-rerank.r3.jsonl`
   - `results/results.json`
@@ -487,7 +512,7 @@ _No stretch runs yet (stretch option 5): `uv run p2 run --corpus own --queries e
 3. `repeats` in section 9 for the rider
 
 4. The interval lets me claim:
-    - the spread between runs is small: (range 0.025 on Recall@10, 0.0000 on MRR@10, 0.013 on nDCG@10)
+    - the spread between runs is small: (range 0.025 on Recall@10, 0.000 on MRR@10, 0.013 on nDCG@10)
     - The gain of `rerank` over `hybrid` on the practice queries is larger than that spread and excludes zero in all three runs (MRR@10 +0.329 [+0.164, +0.504])
 
   The interval does not let me claim:
