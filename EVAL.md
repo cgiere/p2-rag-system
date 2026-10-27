@@ -150,10 +150,12 @@ What is it, where did it come from, how many documents and how many megabytes, a
 Name the one or two documents you were least sure about and what you decided.
 Say which of the allowed sources in the brief it comes from.
 
-The corpus: "The USGS Mineral Commodity Summaries" per-commodity chapter PDFs, from pubs.usgs.gov/periodicals/mcsYYYY/. All 262 manifest rows point there, and `scripts/fetch_usgs.sh` is the fetch script. There are 262 documents: 87 from the 2024 edition, 87 from 2025, and 88 from 2026. This is 2.0 MB of markdown. All 262 rows say `us-gov-public-domain`. `LICENSES.md` shows 262 ok, 0 flagged, 0 fail, 0 reviewed. All 262 manifest sources are usgs.gov addresses.
+The corpus: "The USGS Mineral Commodity Summaries" per-commodity chapter PDFs, from pubs.usgs.gov/periodicals/mcsYYYY/. All 262 manifest rows point there, and `scripts/fetch_usgs.sh` is the fetch script. There are 262 documents: 87 from the 2024 edition, 87 from 2025, and 88 from 2026. This is 2.0 MB of markdown. All 262 rows say `us-gov-public-domain`. `LICENSES.md` shows 262 ok, 0 flagged, 0 fail, 0 reviewed. All 262 manifest sources are usgs.gov addresses. The chapters don’t repeat the front-matter sentence.
 
 License basis: “USGS-authored or produced data and information are considered to be in the U.S. public domain and can be freely used without permission.” 
 The exception: “Not all information, illustrations, or photographs on our site are” in the public domain. Some non-USGS images are used with the copyright holder’s permission and “are generally marked as being copyrighted”. 
+
+Source: https://www.usgs.gov/faqs/are-usgs-reportspublications-copyrighted
 
 Least-sure documents: I was not doubtful of documents since each of the 262 documents were from usgs.gov addresses.
 
@@ -177,7 +179,7 @@ There were 38 queries consisting of 10 by `hand` and 28 from `claude`. There wer
 
 `paraphrase` and `keyword` were used since `bm25` is strong on exact terms while `dense` works well with paraphrasing. 
 
-I grepped keywords like the commodity name, country, and year and then read the chapter that I found to see if it pertained to query. I did also work from `.cache/candidates.md` to find relevance in the pool of documents. For each of the chunks that I labeled, I skimmed the sibling editions. 
+I grepped keywords like the commodity name, country, and year and then read the chapter that I found to see if it pertained to query. I did also work from `.cache/candidates.md` to find relevance in the pool of documents. For each of the chapters that I labeled, I skimmed the sibling editions. 
 
 The size of the set was 120 judgments, 1–6 relevant per query, and most had 3.
 Additionally, the labels are binary.
