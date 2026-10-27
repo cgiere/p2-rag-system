@@ -103,7 +103,6 @@ Which differences are distinguishable from zero and which are not?
 What is the minimum detectable difference at 20 queries, and what does that say about any gap smaller than it?
 Which claim from lecture 12 or 13 did your numbers support, and which did they leave open?
 
-TODO: write what the practice-query intervals let you claim.
 
 On the 20 practice queries, rerank is distinguishably better than hybrid and dense on all three metrics, and better than bm25 on MRR@10 and nDCG@10 (but not Recall@10, and with lower ends barely above zero). None of the differences among bm25, dense and hybrid is distinguishable. The minimum detectable differences are 0.17 to 0.42, so a gap smaller than that could be hidden, and “not distinguishable” here does not mean equal.
 
@@ -128,7 +127,6 @@ Then read three in-corpus answers that `uv run p2 verify` passed.
 For each one, open the cited chunk and say whether the quote really supports the claim next to it.
 The check proves a quote is a real piece of the chunk and cannot prove that it supports the claim, so this reading is the part only you can do.
 
-TODO: write your answer choices and your three-answer audit.
 
 The system that answered is `rerank` as it had the best practice-query scores: Recall@10 0.758, MRR@10 0.800, nDCG@10 0.756; answering with it cost two Claude calls per question.
 
@@ -152,7 +150,12 @@ What is it, where did it come from, how many documents and how many megabytes, a
 Name the one or two documents you were least sure about and what you decided.
 Say which of the allowed sources in the brief it comes from.
 
-TODO: describe your corpus and its license basis.
+The corpus: "The USGS Mineral Commodity Summaries" per-commodity chapter PDFs, from pubs.usgs.gov/periodicals/mcsYYYY/. All 262 manifest rows point there, and `scripts/fetch_usgs.sh` is the fetch script. There are 262 documents: 87 from the 2024 edition, 87 from 2025, and 88 from 2026. This is 2.0 MB of markdown. All 262 rows say `us-gov-public-domain`. `LICENSES.md` shows 262 ok, 0 flagged, 0 fail, 0 reviewed. All 262 manifest sources are usgs.gov addresses.
+
+License basis: “USGS-authored or produced data and information are considered to be in the U.S. public domain and can be freely used without permission.” 
+The exception: “Not all information, illustrations, or photographs on our site are” in the public domain. Some non-USGS images are used with the copyright holder’s permission and “are generally marked as being copyrighted”. 
+
+Least-sure documents: I was not doubtful of documents since each of the 262 documents were from usgs.gov addresses.
 
 ### The gold set
 
@@ -169,6 +172,15 @@ is relevant, whether the figure is an estimate or a revised value. When a query 
 any edition counts as relevant. The exception is a query that names the publication itself (for example, “Mineral Commodity
 Summaries 2025”): there the year refers to the edition, and only that edition’s chapters count. I fixed this rule before
 judging and will not change it after seeing results.
+
+There were 38 queries consisting of 10 by `hand` and 28 from `claude`. There were two classes used: `paraphrase` and `keyword` and it is split evenly: `hand` has 5 paraphrase and 5 keyword, `claude` has 14 and 14, so 19 and 19 overall.
+
+`paraphrase` and `keyword` were used since `bm25` is strong on exact terms while `dense` works well with paraphrasing. 
+
+I grepped keywords like the commodity name, country, and year and then read the chapter that I found to see if it pertained to query. I did also work from `.cache/candidates.md` to find relevance in the pool of documents. For each of the chunks that I labeled, I skimmed the sibling editions. 
+
+The size of the set was 120 judgments, 1–6 relevant per query, and most had 3.
+Additionally, the labels are binary.
 
 ---
 
