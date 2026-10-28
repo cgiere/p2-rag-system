@@ -605,6 +605,8 @@ Write what the spread is, how it compares with the gain, and what the Wilson int
 
 598E: write the repeats result here.
 
+For the repeats, I see that the range is 0.000 on MRR@10, 0.025 on recall and 0.013 on nDCG. There is a clear gain over `hybrid`: MRR@10 is +0.329, [+0.164, +0.504], in all three runs. As for recall (+0.142 to +0.167) and nDCG (+0.306 to +0.320) the values differ slightly between runs. The MRR@10 gain (+0.329) is far larger than its run-to-run range (0.000), and the recall range (0.025) is small next to the recall gain (+0.142 to +0.167). Every lower bound stays above zero, so the gain survives the variation. There were three queries (p03, p11 and p13) that changed their #1 document, but the first relevant rank of every query was the same in all three runs. The Wilson intervals were identical in all three answers files: [0.676, 1.000] on 8 verified and [0.510, 1.000] on 4 declined. Both are 100% observed, but 8 and 4 questions are too few to rule out a lot of failures.
+
 ### The pre-registered claim
 
 The claim, the smallest effect, the gold-set size and the test are in `PREREG.md`, committed before your own gold-set judgments.
