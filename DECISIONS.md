@@ -41,7 +41,7 @@ If you rejected the alternative without measuring it, say why that was a fair ca
 "There was no alternative" is not an answer.
 Find the fork.
 
-TODO: your answer to prompt 2.
+A fork in the road was choosing the 300-word chunks for all four systems (`chunking` in `p2.toml`). The alternative, 100-word chunks, was tested in the `dense_small` ablation. The results from the ablation show that the 100-word version scored higher: `dense` is 0.722 MRR@10 and `dense_small` is 0.798, but the difference of +0.076, [-0.029, +0.185] is not distinguishable. However, the overlap stayed at 50 words, which is a larger share of a 100-word chunk, so the ablation changed more than chunk size. The ablation changed only `dense`. `bm25` and `hybrid` still use 300-word chunks, so it does not show how the 100-word chunks would affect them. By keeping 300 words I gave up a possible small gain for dense, which I can’t confirm because the interval includes zero.
 
 ---
 
@@ -57,7 +57,7 @@ What did you do instead?
 If it genuinely never happened, say so plainly, and then say what you would have had to check in order to notice.
 Being honest here costs you far less than a story you cannot defend when you record your video.
 
-TODO: your answer to prompt 3.
+I did not overrule the agent at any juncture. Claude drafted 28 of the queries, but I made every relevance judgment myself. To notice a bad suggestion I would have had to compare the pool of 818 candidates Claude built with what I found reading the chapters.
 
 ---
 
@@ -69,7 +69,7 @@ It could be a mean over a small query class, a difference whose interval include
 What would have to be true for you to trust it?
 Did you do anything to test it, and what did that show?
 
-TODO: your answer to prompt 4.
+A number that I don't trust is `rerank`’s own-corpus MRR@10 of 0.947, from one run, since I repeated the reranker only on the shared corpus. The margin is narrow: `rerank` minus `hybrid` on MRR@10 is +0.124, [+0.030, +0.232]. The lower end is barely above zero, so a different Claude reply on a few queries could shrink it, but I did not measure that on my corpus. I would trust it if repeated runs on my corpus showed a small range, as they did on the shared corpus. On the shared corpus, three repeats gave an MRR@10 range of 0.000, and no query’s first relevant rank moved. On my corpus I did not repeat it, so I did not test this number directly. The shared result doesn’t prove the same for mine.
 
 ---
 
@@ -80,4 +80,4 @@ One thing in your system, your corpus or your gold set that is not right, not fi
 What would you do next, and how would you find out whether it matters?
 Name the file, the query or the document where someone could look.
 
-TODO: your answer to prompt 5.
+I found relevant chapters by grepping the commodity, country and year and then skimmed the chapters to see if they answered the queries. If there was a relevant chapter that I didn't grep for then this would be unlabeled and therefore counted against every system. An example is `o05`: `mcs2026-rare-earths` says magnets were the leading use and names neodymium-iron-boron, but the chapter is not in `qrels.txt`. The candidate list had 818 chapters (about 21.5 per query), and I labeled 120 as relevant, so I didn’t read all the rest in full. Next I would reread the unlabeled chapters in `rerank`’s top 5 for a sample of queries (the 10 failure queries or the paraphrase queries) and decide under my rule whether any is relevant. I would report corrected scores separately from the frozen ones, without editing `qrels.txt`. If the corrected MRR@10 moves by more than the `rerank` margin over `hybrid` (+0.124), the labeling affected my conclusions. Someone could find this in `eval/own/qrels.txt`.

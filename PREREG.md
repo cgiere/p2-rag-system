@@ -124,6 +124,8 @@ On my 38-query gold set, hybrid scored +0.056 above bm25 on MRR@10 (95% interval
 0.15, so under my pre-stated rule the result is inconclusive: I cannot rule out a difference as large as 0.15, nor show one. The minimum detectable difference
 was 0.139, below my Δ, so the set was as sensitive as planned.
 
+Next I would extend the gold set to about 83 queries to resolve `hybrid` vs `bm25`, and record this as a dated amendment in `PREREG.md` section 6 so that it would not be a rescue. I would want a reader to take away that the result is inconclusive since the gold set could neither show a gap of 0.15 nor rule one out, so it supports neither `hybrid` beats `bm25` nor "they're equal".
+
 ---
 
 ## 6. Amendments
