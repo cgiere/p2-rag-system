@@ -306,7 +306,6 @@ Which differences are distinguishable and which are not, at your gold-set size?
 Do the `hand` queries and the `claude` queries tell the same story?
 Did your prediction in `DECISIONS.md` prompt 1 hold?
 
-TODO: write what your own-corpus intervals let you claim.
 Among the distinguishable results, `rerank` beats all three other systems on all three metrics. The MRR@10 gaps are +0.180 over `bm25`, +0.225 over `dense` and +0.124 over `hybrid`, with intervals [+0.077, +0.292], [+0.104, +0.359] and [+0.030, +0.232]. `hybrid` beats `dense` on all three metrics (MRR@10 +0.101, [+0.023, +0.193]). For the ones that were not distinguishable, `hybrid` vs `bm25` yielded MRR@10 +0.056, [-0.039, +0.153] and `dense` vs `bm25` produced MRR@10 -0.045, [-0.177, +0.081]. The MDD is about 0.11 to 0.18 for these two pairs. A gap smaller than that could be hidden, so “not distinguishable” doesn’t mean equal. Additionally, the lower bound is small for some `rerank` gaps. `rerank` over `hybrid` on MRR@10 has a lower bound of +0.030, barely above zero.
 
 I would not pick a different system between `hand` and `claude` since `rerank` has the highest MRR@10 on both (0.950 on `hand`, 0.946 on `claude`). The interval for `hand` minus `claude` includes zero for 14 of 15 rows. The one exception is `rerank` Recall@10 (+0.083, [+0.006, +0.179]), which is borderline. On `hand` recall: `rerank` is highest (1.000) and `hybrid` is ahead of `bm25` and `dense`. `bm25` leads `dense` on `claude` (+0.108 MRR) and trails on `hand` (-0.131), but that difference between groups includes zero ([-0.106, +0.572]). However, there are only 10 `hand` queries so the intervals are wide and "not distinguishable" doesn't mean the groups are equal.
@@ -426,7 +425,13 @@ Did the winner change between the shared corpus and yours?
 Why, or why not: what is different about the two collections (document length, vocabulary, identifiers, near-duplicates, how the queries were written), and which of your explanations did you test and which are guesses?
 Say what 20 queries on one side and your gold-set size on the other cannot support.
 
-TODO: write the cross-corpus comparison.
+The winner did not change between the shared corpus and my own as `rerank` is the best on both corpora: `rerank` scores 0.800 MRR@10 for the shared documents and 0.947 MRR@10 for my own. The document length changing (from on average 157 words in the shared documents to 1,071 words in my corpus) could be a contributing factor to this since `rerank` reads text with Claude, so it may not depend on identifiers or length the way `bm25` and `dense` do. `hybrid` changed the most out of all four systems: on the shared corpus it was lowest on MRR@10 (0.471) and not distinguishable from `bm25` or `dense`. On my corpus it beat `dense` distinguishably but is not distinguishable from `bm25`.
+
+There were 2,484 documents on the shared corpus versus 262 documents in my corpus. The shared documents have an identifier class with queries such as "49.12" while my corpus has no identifier class, only paraphrase and keyword. For near duplicates, each commodity appears in three nearly identical editions in my corpus (262 chapters), which I noticed in `o33`, `o17` and `o22`. The shared sets of queries were by the instructor while for my corpus 10 queries were written by me and 28 were drafted by Claude. I did not test any of these as explanations; they are guesses.
+
+The only thing I ran was the chunk-size ablation, which was not distinguishable from `dense` and does not bear on the difference between corpora.
+
+The practice set has 20 queries and its MDD is about 0.17 to 0.42 (intervals like [-0.35, +0.23] on `dense` vs `bm25`). My corpus has 38, with MDD about 0.09 to 0.19. `hybrid`’s score rose from 0.471 to 0.823, but the shared corpus can’t separate it from `bm25` or `dense`, so I can’t claim its position changed.
 
 ---
 
