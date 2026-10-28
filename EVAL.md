@@ -603,8 +603,6 @@ Each repeat answers the same questions, so the repeats are not independent trial
 Does the reranker's gain over its first stage survive the run-to-run variation?
 Write what the spread is, how it compares with the gain, and what the Wilson intervals on the verified share and the declined share say about 8 and 4 questions.
 
-598E: write the repeats result here.
-
 For the repeats, I see that the range is 0.000 on MRR@10, 0.025 on recall and 0.013 on nDCG. There is a clear gain over `hybrid`: MRR@10 is +0.329, [+0.164, +0.504], in all three runs. As for recall (+0.142 to +0.167) and nDCG (+0.306 to +0.320) the values differ slightly between runs. The MRR@10 gain (+0.329) is far larger than its run-to-run range (0.000), and the recall range (0.025) is small next to the recall gain (+0.142 to +0.167). Every lower bound stays above zero, so the gain survives the variation. There were three queries (p03, p11 and p13) that changed their #1 document, but the first relevant rank of every query was the same in all three runs. The Wilson intervals were identical in all three answers files: [0.676, 1.000] on 8 verified and [0.510, 1.000] on 4 declined. Both are 100% observed, but 8 and 4 questions are too few to rule out a lot of failures.
 
 ### The pre-registered claim
@@ -613,4 +611,4 @@ The claim, the smallest effect, the gold-set size and the test are in `PREREG.md
 Here, say whether you followed the plan, what the interval turned out to be, and what that means.
 The outcome section of `PREREG.md` holds the short version.
 
-598E: write the claim and its outcome here.
+I followed the plan: `PREREG.md` sections 1 to 4 were committed (dcd371b, 10-23 14:38) before the first judgment (c472c4a, 16:38). The pre-registered claim was that `hybrid` beats `bm25` on MRR@10 by at least Δ = 0.15, with n = 38 from sd 0.307 padded to 0.33. The interval was +0.056, [-0.039, +0.153], with MDD 0.139. The interval is around zero with an end beyond Δ (0.153 vs 0.15, over by 0.003 which misses the well-powered null row), so the result is inconclusive. The gold set could neither show a gap of 0.15 nor rule one out. The per-query spread of the `hybrid` minus `bm25` MRR@10 difference is 0.306. If the true gap is +0.056, the upper end of the interval gets below 0.15 at about 41 queries, which is a 50% chance, and about 83 gives an 80% chance. Any extension would be a dated amendment in `PREREG.md` section 6.
